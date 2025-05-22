@@ -9,21 +9,16 @@ pip install TensorFox
 conda create --name tfx_env --channel defaults jupyter numpy pandas scipy scikit-learn matplotlib numba IPython sparse_dot_mkl  
 ```
 
-### Protocol for creating and factorizing high-dimensional tensors (i.e. not 2D)
-Slurm scripts are in '/commons/groups/gursoy_lab/wlounsberyscaife/PoreC_Tensors/scripts/slurm_jobs' \
-The corresponding Python scripts are in '/commons/groups/gursoy_lab/wlounsberyscaife/PoreC_Tensors/scripts/python_code' \
-```bash
-cd /commons/groups/gursoy_lab/wlounsberyscaife/PoreC_Tensors/scripts/slurm_jobs
-```
+### Protocol for creating and factorizing high-dimensional tensors
+The corresponding Python scripts are in 'scripts/python_code' \
 
 To create tensors for Pore-C data:
 ```bash
 sbatch make_tensors.slurm
 ```
- - You can check the log file here: '/commons/groups/gursoy_lab/wlounsberyscaife/PoreC_Tensors/output/make_tensors_log_slurm_{job_number}.txt
- - The tensors are saved in '/commons/groups/gursoy_lab/wlounsberyscaife/PoreC_Tensors/output/tensors/'
+ - You can check the log file make_tensors_log_slurm_{job_number}.txt for additional info
  - You can change the parameters at the top of the make_tensors.py script
- - You may have to modify the memory allocation at the top of the slurm script
+ - You may have to modify the memory allocation in the job submission slurm script
     - Using a smaller window size will require more memory
     - Creating tensors for larger chromosomes will require more memory
     - Using a higher maximum cardinality will require *way* more memory
@@ -33,8 +28,7 @@ To perform CPD on the tensors:
 ```bash
 sbatch cpd.slurm
 ```
- - You can check the log file here: '/commons/groups/gursoy_lab/wlounsberyscaife/PoreC_Tensors/output/cpd_log_slurm_{job_number}.txt
- - The factors will be saved in '/commons/groups/gursoy_lab/wlounsberyscaife/PoreC_Tensors/output/factors/'
+ - You can check the log file here: 'cpd_log_slurm_{job_number}.txt
 
  To plot the factors, you can use the jupyter notebook 'scripts/jupyter_notebooks/cpd_results.ipynb/cpd_results.ipynb'
 
@@ -53,7 +47,6 @@ conda activate cool_env
 conda install -c conda-forge -c bioconda cooler cooltools bioframe coolbox numpy pandas h5py scipy
 conda install pytorch=2.1.1 torchvision=0.15.2 torchaudio=2.1.1 cudatoolkit=11.3.1 -c pytorch
 ```
-Note that these commands may take a while to run. \
 
 To create the 2D Pore-C tensors and create .cool files from the tensors:
 ```bash
